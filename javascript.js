@@ -1,3 +1,4 @@
+
 const prompt = require('prompt-sync')({sigint: true});
 
 const setDif = prompt('Select dificulty: [EASY, MEDIUM, HARD]' ).toLowerCase().trim();
