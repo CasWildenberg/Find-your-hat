@@ -33,8 +33,8 @@ class Field {
     this.width = width;
     this.holesPct = holesPct;
     this.field = [];
-    this.x = 0;
-    this.y = 0;
+    this.x = Math.floor(Math.random() * this.width);
+    this.y = Math.floor(Math.random() * this.height);
   }
 
   generateField(){
@@ -43,6 +43,7 @@ class Field {
     const hatLocY = Math.floor(Math.random() * this.height);
     const holesNum = this.height * this.width / 100 * this.holesPct;
 
+    //Create map with only field entities.
     for(let i = 0; i < this.height; i++){
       field.push([])
       for(let j = 0; j < this.width; j++){
@@ -50,6 +51,7 @@ class Field {
       }
     }
 
+    //Insert other entities
     let i = 1;
     while(i < holesNum){
       const randLocX = Math.floor(Math.random() * this.width);
@@ -57,12 +59,12 @@ class Field {
       field[randLocY][randLocX] = hole;
       i++;
     }
-    field[0][0] = pathCharacter;
+    field[this.y][this.x] = pathCharacter;
     field[hatLocY][hatLocX] = hat;
     
     this.field = field;
   } 
-
+  //Print field overview
   print(){
     let jointField = [];
     for(let i = 0; i < this.field.length; i++){
