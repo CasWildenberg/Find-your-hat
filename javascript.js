@@ -32,8 +32,8 @@ class Field {
     this.width = width;
     this.holesPct = holesPct;
     this.field = [];
-    this.x = 0;
-    this.y = 0;
+    this.x = Math.floor(Math.random() * this.width);
+    this.y = Math.floor(Math.random() * this.height);
   }
 
   generateField(){
@@ -42,6 +42,7 @@ class Field {
     const hatLocY = Math.floor(Math.random() * this.height);
     const holesNum = this.height * this.width / 100 * this.holesPct;
 
+    //Create map fully covered with fieldCharacter entities.
     for(let i = 0; i < this.height; i++){
       field.push([])
       for(let j = 0; j < this.width; j++){
@@ -49,14 +50,18 @@ class Field {
       }
     }
 
+    // Create holes within map.
     let i = 1;
-    while(i < holesNum){
-      const randLocX = Math.floor(Math.random() * this.width);
-      const randLocY = Math.floor(Math.random() * this.height);
-      field[randLocY][randLocX] = hole;
-      i++;
+    let randLocX = 0;
+    let randLocY = 0;
+    while(i <= holesNum){ //Iterate one extra time to make an extra hole to be replaced with pathcharacter
+        randLocX = Math.floor(Math.random() * this.width);
+        randLocY = Math.floor(Math.random() * this.height);
+        field[randLocY][randLocX] = hole;
+        i++;
     }
-    field[0][0] = pathCharacter;
+    //insert path- and hat characters with randomized locations.
+    field[this.y][this.x] = pathCharacter;
     field[hatLocY][hatLocX] = hat;
     
     this.field = field;
